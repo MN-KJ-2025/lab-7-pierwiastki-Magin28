@@ -86,4 +86,15 @@ def is_nonsingular(A: np.ndarray) -> bool | None:
             wypadku `False`.
         Jeżeli dane wejściowe są niepoprawne funkcja zwraca `None`.
     """
-    pass
+    
+    try:
+        # upewniamy się, że to macierz 2D
+        A = np.array(A, dtype=float)
+        if A.ndim != 2 or A.shape[0] != A.shape[1]:
+            return None
+
+        det = np.linalg.det(A)
+        eps = np.finfo(float).eps  # bezpośrednio float
+        return abs(det) > eps
+    except Exception:
+        return None
